@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import SignInForm from "./_auth/forms/SignInForm";
+import SignUpForm from "./_auth/forms/SignUpForm";
+import { Home } from "./_root/pages";
 
 import "./globals.css";
 const App = () => {
@@ -7,6 +10,7 @@ const App = () => {
       <Routes>
         {/* Public routes */}       
         <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />
 
 
         {/* Private routes */}
