@@ -5,9 +5,14 @@ const App = () => {
   return (
     <main className=" flex h-screen">
       <Routes>
-        <Route path="/" />
+        {/* Public routes */}       
+        <Route path="/sign-in" element={<SignInForm />} />
+
+
+        {/* Private routes */}
+        <Route index element={<Home />} />
+      
       </Routes>
-      <h2 className="text-3xl underline">salut</h2>
     </main>
   )
 }
