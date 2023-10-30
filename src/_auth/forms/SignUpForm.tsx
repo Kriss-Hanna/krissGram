@@ -33,9 +33,7 @@ const SignUpForm = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof signupValidationSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    const newUser = await createUserAccount(values);
   }
 
   return (
@@ -52,7 +50,8 @@ const SignUpForm = () => {
       </div>
 
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        // onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={onSubmit(form)}
         className="flex flex-col gap-5  mt-4"
       >
         <FormField
