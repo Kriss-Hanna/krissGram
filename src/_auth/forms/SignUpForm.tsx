@@ -16,6 +16,7 @@ import { signupValidationSchema } from "@/lib/validation";
 import z from "zod";
 import Loader from "@/components/shared/Loader";
 import { Link } from "react-router-dom";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 const SignUpForm = () => {
   const isLoading = false;
@@ -32,9 +33,11 @@ const SignUpForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof signupValidationSchema>) {
+  const onSubmit = async (values: z.infer<typeof signupValidationSchema>) => {
     const newUser = await createUserAccount(values);
-  }
+
+    console.log(newUser);
+  };
 
   return (
     <Form {...form}>
@@ -50,8 +53,7 @@ const SignUpForm = () => {
       </div>
 
       <form
-        // onSubmit={form.handleSubmit(onSubmit)}
-        onSubmit={onSubmit(form)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-5  mt-4"
       >
         <FormField
