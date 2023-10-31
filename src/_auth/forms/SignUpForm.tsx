@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 import { signupValidationSchema } from "@/lib/validation";
 import z from "zod";
@@ -19,6 +20,7 @@ import { Link } from "react-router-dom";
 import { createUserAccount } from "@/lib/appwrite/api";
 
 const SignUpForm = () => {
+  const { toast } = useToast();
   const isLoading = false;
 
   // 1. Define your form.
@@ -36,7 +38,13 @@ const SignUpForm = () => {
   const onSubmit = async (values: z.infer<typeof signupValidationSchema>) => {
     const newUser = await createUserAccount(values);
 
-    console.log(newUser);
+    if (!newUser) {
+      return toast({
+        title: "Something went wrong.",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
