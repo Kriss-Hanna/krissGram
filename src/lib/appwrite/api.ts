@@ -62,6 +62,7 @@ export async function saveUserToDB(user: {
 
     return newUser;
   } catch (err) {
+    console.log(appwriteConfig);
     console.log(err);
   }
 }

@@ -16,16 +16,20 @@ import { useToast } from "@/components/ui/use-toast";
 import { signupValidationSchema } from "@/lib/validation";
 import z from "zod";
 import Loader from "@/components/shared/Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useCreateUserAccount,
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
 
 const SignUpForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const { mutateAsync: createUserAccount, isLoading: isCreatingUser } =
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+
+  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } =
     useCreateUserAccount();
 
   const { mutateAsync: signInAccount, isLoading: isSigningIn } =
@@ -44,7 +48,6 @@ const SignUpForm = () => {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof signupValidationSchema>) => {
-    console.log(values);
     const newUser = await createUserAccount(values);
 
     if (!newUser) {
@@ -61,6 +64,17 @@ const SignUpForm = () => {
     if (!session) {
       return toast({
         title: "Sign In Failded, please try again.",
+      });
+    }
+
+    const isLoggedIn = await checkAuthUser();
+
+    if (isLoggedIn) {
+      form.reset();
+      navigate("/");
+    } else {
+      return toast({
+        title: "Sign up failded, please try again.",
       });
     }
   };
@@ -139,7 +153,7 @@ const SignUpForm = () => {
         />
 
         <Button type="submit" className="shad-button_primary">
-          {isCreatingUser ? (
+          {isCreatingAccount ? (
             <div className="flex-center gap-2 items-center">
               <Loader /> Loading ...
             </div>
