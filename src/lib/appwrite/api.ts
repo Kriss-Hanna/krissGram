@@ -35,10 +35,19 @@ export async function createUserAccount(user: INewUser) {
   }
 }
 
-export async function SignInAccount(user: { email: string; password: string }) {
+export async function signInAccount(user: { email: string; password: string }) {
   try {
     const session = await account.createEmailSession(user.email, user.password);
 
+    return session;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function signOutAccount() {
+  try {
+    const session = await account.deleteSession("current");
     return session;
   } catch (err) {
     console.log(err);
