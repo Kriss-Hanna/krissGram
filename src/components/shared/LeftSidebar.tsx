@@ -51,16 +51,6 @@ const LeftSidebar = () => {
         )   
        })}
       </ul>
-{/*       <ul className="flex flex-col gap-6">
-       {sidebarLinks.map((link: INavLink) => (
-        <li key={link.label} className="flex gap-3 items-center">
-           <img src={link.imgURL || "/assets/icons/profile-placeholder.svg"} alt="profile" className="h-14 w-14 rounded-full"  />
-          <Link to={`/${link.route}`} className="flex gap-3 items-center">
-            {link.label}
-          </Link>
-        </li>
-       ))}
-      </ul> */}
     </div>  
   </nav>
   ) 
