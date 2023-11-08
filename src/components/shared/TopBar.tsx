@@ -7,7 +7,6 @@ import { useUserContext } from "@/context/AuthContext";
 const TopBar = () => {
   const navigate = useNavigate();
   const { user } = useUserContext();
-  console.log(user);
 
   const { mutate: signOut, isSuccess } = useSignOutAccount();
 
